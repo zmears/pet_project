@@ -30,11 +30,35 @@
                     <input type="text" name="breed" placeholder="Breed" id="breed">
                 </div>
                 <button type="submit" class="btn btn-default" id="searchButton">Search</button>
+                <input id="pageOffset" type="hidden" value="0" name="pageOffset" />
+                <input id="pageSort" type="hidden" value="" name="pageSort" />
             </form>
         </div>
 
+        <div id="errorMessage" class="alert alert-danger" style="display: none;">
+            Please input a valid location. Ex: Atlanta, GA or 30303
+        </div>
+
+        <div id="noPetsMessage" class="alert alert-warning" style="display: none;">
+            We were unable to find any pets matching your search criteria. <br />
+            Please update your search criteria and try again.
+        </div>
+
         <div class="row show-grid nextDiv" style="display: none;">
-            <button class="btn btn-primary pull-right">Next</button>
+            <button class="btn btn-default pull-left navButton prevButton" disabled="disabled">Prev</button>
+            <button class="btn btn-primary pull-right navButton nextButton">Next</button>
+        </div>
+
+        <div class="btn-group" id="sortDiv">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Sort By <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="sortmenu">
+                <li><a href="#">Name</a></li>
+                <li><a href="#">Gender</a></li>
+                <li><a href="#">Size</a></li>
+                <li><a href="#">Type</a></li>
+            </ul>
         </div>
 
         <div id="petContent" class="row text-center">
@@ -43,10 +67,13 @@
         </div>
 
         <div class="row show-grid nextDiv" style="display: none;">
-            <button class="btn btn-primary pull-right">Next</button>
+            <button class="btn btn-default pull-left navButton prevButton" disabled="disabled">Prev</button>
+            <button class="btn btn-primary pull-right navButton nextButton">Next</button>
         </div>
 
     </div>
+
+
 
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 petColumn" id="displayTemplate" style="display: none;">
 

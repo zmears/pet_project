@@ -10,33 +10,65 @@ $(document).ready(function () {
             return;
         }
 
-        //Initialize some variables for manipulation later
-        var loadingImage = $('#loadingImage');
+        $('#pageOffset').val(0);
+        $('.prevButton').prop('disabled', true);
+
+        getPets();
+
+
+    });
+
+    $('.navButton').click(function (e) {
+        e.preventDefault();
+
+        if(!validate()) {
+            return;
+        }
+
+        //I tried to store this locally instead of the form and it was not happy
+        var offset = parseInt($('#pageOffset').val());
+
+        if ($(this).hasClass('nextButton')) {
+            offset += 25
+
+        } else if ($(this).hasClass('prevButton')) {
+            offset -= 25
+        }
+
+        $('#pageOffset').val(offset);
+
+        $('.prevButton').prop('disabled', (offset <= 0));
+
+        getPets();
+    });
+
+    function getPets() {
 
         //Remove all of the previous items
         petContent.find('.petColumn').remove();
 
         //Show the loading image
-        loadingImage.fadeIn();
+        resetBeforeSubmit();
 
         //Get data from the API
         $.getJSON(buildApiUri(), function (petApiData) {
 
-            //We have our data, hide immediately (creates bounce effect of not hidden right away)
-            loadingImage.hide();
+            //We have our response, hide immediately (creates bounce effect of not hidden right away)
+            $('#loadingImage').hide();
 
-            $('.nextDiv').show();
+            //Check if we got any data
+            if (checkResponse(petApiData)) {
 
-            //Validate Data
-
-            setupPets(petApiData.petfinder.pets.pet);
+                setupPets(petApiData.petfinder.pets.pet);
+                $('.nextDiv').show();
+            } else {
+                $('#noPetsMessage').show();
+            }
 
 
 
         });
-
-
-    });
+    }
 
     function buildApiUri() {
         var query = 'http://api.petfinder.com/pet.find?key=e1c7900f743a4c461fd43601078532bf&location=' + encodeURIComponent($('#location').val());
@@ -47,11 +79,24 @@ $(document).ready(function () {
             query += '&animal=' + encodeURIComponent(animalType);
         }
 
+        query += '&offset=' + parseInt($('#pageOffset').val());
+
+        console.log(query);
+
         return query + '&callback=?&format=json';
     }
 
-    function checkResponse() {
+    function checkResponse(response) {
+        //Make sure we have an actual response from the server
+        if (response.petfinder !== undefined) {
 
+            //Make sure we have pet data
+            if (response.petfinder.pets !== undefined) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     function setupPets(petArray) {
@@ -110,13 +155,20 @@ $(document).ready(function () {
     function validate() {
 
         if ($('#location').val() == '' || $('#location').val() === undefined) {
-            alert('Please enter a location');
+            $("#errorMessage").text('Please input a valid location. Ex: Atlanta, GA or 30303').show();
             return false;
         }
 
 
         return true;
 
+    }
+
+    function resetBeforeSubmit() {
+        $("#errorMessage").hide();
+        $('#loadingImage').fadeIn();
+        $('.nextDiv').hide();
+        $('#noPetsMessage').hide();
     }
 
     function getSize(size) {
