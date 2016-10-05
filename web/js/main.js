@@ -4,6 +4,7 @@ $(document).ready(function () {
     var petData    = []; //Holds current data on the page so we can sort
     var petBreeds  = [];
 
+    //MARK: - Click Functions
 
     $('#searchButton').click(function (e) {
         e.preventDefault(e);
@@ -64,6 +65,29 @@ $(document).ready(function () {
         //get the next set of pet data
         getPets();
     });
+
+    $('#type').change(function () {
+
+        //Remove the current "Breed" options
+        $('#breed option').remove();
+        addAnyBreed(); //Add the default Any Option
+
+        //Clear the Pet Info
+        clearPets();
+
+        //Get the Breed information from the API
+        getBreeds($(this).val());
+
+        //Trigger Search
+        $('#searchButton').click();
+    });
+
+    $('#breed').change(function() {
+        //Trigger Search
+        $('#searchButton').click();
+    });
+
+    //MARK: - API Methods
 
     function getPets(apiRequestType) {
 
@@ -139,28 +163,28 @@ $(document).ready(function () {
         return query;
     }
 
+    function checkResponse(response) {
+        //Make sure we have an actual response from the server
+        if (response.petfinder !== undefined) {
 
-    $('#type').change(function () {
+            //Make sure we have pet data
+            if (response.petfinder.pets !== undefined) {
+                petData = response.petfinder.pets.pet;
+                return true;
+            }
 
-        //Remove the current "Breed" options
-        $('#breed option').remove();
-        addAnyBreed(); //Add the default Any Option
+            if (response.petfinder.pet !== undefined) {
+                petData = [response.petfinder.pet];
+                return true;
+            }
+        }
 
-        //Clear the Pet Info
-        clearPets();
+        return false;
+    }
 
-        //Get the Breed information from the API
-        getBreeds($(this).val());
 
-        //Trigger Search
-        $('#searchButton').click();
-    });
+    //MARK: - Data Formatting
 
-    $('#breed').change(function() {
-        //Trigger Search
-        $('#searchButton').click();
-    });
-    
     function getBreeds(type) {
         var query = buildApiUri('breed');
 
@@ -204,36 +228,6 @@ $(document).ready(function () {
         $('#breed').append('<option value="any">Breed - Any</option>');
     }
 
-    function checkResponse(response) {
-        //Make sure we have an actual response from the server
-        if (response.petfinder !== undefined) {
-
-            //Make sure we have pet data
-            if (response.petfinder.pets !== undefined) {
-                petData = response.petfinder.pets.pet;
-                return true;
-            }
-
-            if (response.petfinder.pet !== undefined) {
-                petData = [response.petfinder.pet];
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    //Easier toggling
-    function showNav() {
-        $('#sortDiv').show();
-        $('.nextDiv').show();
-    }
-
-    function hideNav() {
-        $('#sortDiv').hide();
-        $('.nextDiv').hide();
-    }
-
     //Setups up the template for each pet
     function setupPets(petArray) {
 
@@ -258,6 +252,7 @@ $(document).ready(function () {
         });
 
     }
+
 
     function populateTemplate(petId, petData, template) {
 
@@ -360,6 +355,7 @@ $(document).ready(function () {
         return breeds;
     }
 
+    //MARK: - Form Validation
 
     //Simple form validation
     function validate() {
@@ -372,7 +368,17 @@ $(document).ready(function () {
 
 
         return true;
+    }
 
+    //Easier toggling
+    function showNav() {
+        $('#sortDiv').show();
+        $('.nextDiv').show();
+    }
+
+    function hideNav() {
+        $('#sortDiv').hide();
+        $('.nextDiv').hide();
     }
 
     //Toggle a few items when the user clicks search
@@ -420,6 +426,8 @@ $(document).ready(function () {
         }
     }
 
+
+    //MARK: - Sorting
 
     //Keep track of the direction we are sorting
     var ascending = false;
