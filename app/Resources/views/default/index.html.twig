@@ -12,6 +12,7 @@
                 <div class="form-group">
                     <input type="text" placeholder="Ex: Atlanta, GA or 30303" name="location" id="location">
                 </div>
+
                 <div class="form-group">
                     <select id="type" name="type" class="form-control">
                         <option value="any">Animal Type - Any</option>
@@ -26,19 +27,17 @@
                         <option value="barnyard">Barnyard</option>
                     </select>
                 </div>
+
                 <div class="form-group">
                     <select id="breed" name="breed" class="form-control">
                         <option value="any">Breed - Any</option>
                     </select>
 
                 </div>
-                <div class="form-group">
-                    <input type="radio" name="sex" value="male"> Male
-                    <input type="radio" name="sex" value="female"> Female
 
-                </div>
                 <button type="submit" class="btn btn-default" id="searchButton">Search</button>
                 <button class="btn btn-primary" id="randomButton">Random!</button>
+
                 <input id="pageOffset" type="hidden" value="0" name="pageOffset" />
                 <input id="pageSort" type="hidden" value="" name="pageSort" />
             </form>
@@ -89,6 +88,8 @@
         <p class="petDescription">
             <h3 class="petName"><a href="#" data-toggle="modal" data-target="#moreInfo">Pet Name</a></h3>
 
+            <span class="petType">Cat - Calico</span> <br />
+
             <span class="petAttributes">Age * Gender * Size</span>
 
             <br />
@@ -105,6 +106,7 @@
                         <div class="modal-body">
                             <img src="http://placehold.it/250x250" alt="Pet Image" class="petImage img-responsive center-block"> <br /> <br />
                             <p class="text-justify modalPetAttributes"></p>
+                            <p class="text-center modalPetContact"></p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

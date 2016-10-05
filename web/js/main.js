@@ -264,13 +264,52 @@ $(document).ready(function () {
 
         template.removeAttr('id'); //Remove the ID so we dont accidentally grab this next time around
         template.find('.petName a').text(petData.name.$t); //Pet name
-        template.find('.petAttributes').text(petData.age.$t + ' - ' + sex + ' - ' + getSize(petData.size.$t)); //Misc Age - Gender - Size
+        template.find('.petType').html(petData.animal.$t + ' &#9679; ' + formatBreeds(petData));
+        template.find('.petAttributes').html(petData.age.$t + ' &#9679; ' + sex + ' &#9679; ' + getSize(petData.size.$t)); //Misc Age - Gender - Size
         template.find('a').attr('data-target', '#moreInfo-' + petId); //Set a unique ID on the links so we can open the Modal
 
         //Modal Setup
         template.find('h4').text(petData.name.$t); //Pet Name
         template.find('.modalPetAttributes').text(petData.description.$t); //Long Text Description
         template.find('#moreInfo').attr('id', 'moreInfo-' + petId) //Set the modal ID so we can open it
+
+        //Append contact data to bottom of the template if we have some.
+        if (petData.contact !== undefined) {
+
+            var contactStrings = [];
+
+            if (petData.contact.phone.$t !== undefined) {
+                contactStrings.push('<a href="tel:'+ petData.contact.phone.$t +'">'+ petData.contact.phone.$t +'</a>');
+            }
+
+            if (petData.contact.email.$t !== undefined) {
+                contactStrings.push('<a href="mailto:'+ petData.contact.email.$t +'">'+ petData.contact.email.$t +'</a>');
+            }
+
+            var locationStrings = [];
+
+            if (petData.contact.address1.$t !== undefined) {
+                locationStrings.push(petData.contact.address1.$t);
+            }
+
+            if (petData.contact.city.$t !== undefined) {
+                locationStrings.push(petData.contact.city.$t);
+            }
+
+            if (petData.contact.state.$t !== undefined) {
+                locationStrings.push(petData.contact.state.$t);
+            }
+
+            if (petData.contact.zip.$t !== undefined) {
+                locationStrings.push(petData.contact.zip.$t);
+            }
+
+            template.find('.modalPetContact').append(contactStrings.join(' | '));
+
+            if (locationStrings.length > 0) {
+                template.find('.modalPetContact').append('<p>' + locationStrings.join(', ') + '</p>');
+            }
+        }
 
         //Search through the photos and find the one with the correct size.
         if (petData.media.photos !== undefined) {
@@ -285,6 +324,27 @@ $(document).ready(function () {
             }    
         }
         
+    }
+
+
+    //Format breeds
+    function formatBreeds(pet) {
+        var breeds = '';
+        if (pet.breeds !== undefined) {
+            if (pet.breeds.breed !== undefined) {
+                //If breeds is an array, concat them into one string
+                if (pet.breeds.breed.length > 0) {
+                    breeds = $.map(pet.breeds.breed, function(obj) {
+                       return obj.$t;
+                    }).join(', ');
+                //If breeds is a single object, just return that one
+                } else if (pet.breeds.breed.$t !== undefined) {
+                    return pet.breeds.breed.$t;
+                }
+            }
+        }
+
+        return breeds;
     }
 
 
