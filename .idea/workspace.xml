@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd875dd5-ebfc-4e61-9d7a-38a4c675a3a3" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/default/index.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/default/index.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/main.js" afterPath="$PROJECT_DIR$/web/js/main.js" />
     </list>
     <ignored path="pet_project.iws" />
@@ -70,8 +68,8 @@
       <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="701">
-              <caret line="340" column="63" selection-start-line="340" selection-start-column="63" selection-end-line="340" selection-end-column="63" />
+            <state relative-caret-position="3030">
+              <caret line="202" column="24" selection-start-line="202" selection-start-column="24" selection-end-line="202" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -377,12 +375,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1475591153875</updated>
-      <workItem from="1475591155015" duration="34066000" />
+      <workItem from="1475591155015" duration="35384000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34066000" />
+    <option name="totallyTimeSpent" value="35384000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="23" width="1921" height="1053" extended-state="6" />
@@ -508,8 +506,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="701">
-          <caret line="340" column="63" selection-start-line="340" selection-start-column="63" selection-end-line="340" selection-end-column="63" />
+        <state relative-caret-position="3030">
+          <caret line="202" column="24" selection-start-line="202" selection-start-column="24" selection-end-line="202" selection-end-column="24" />
           <folding />
         </state>
       </provider>

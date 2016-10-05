@@ -139,12 +139,17 @@ $(document).ready(function () {
         return query;
     }
 
-    $('#type').change(function () {
-        $('#breed option').remove();
-        addAnyBreed();
 
+    $('#type').change(function () {
+
+        //Remove the current "Breed" options
+        $('#breed option').remove();
+        addAnyBreed(); //Add the default Any Option
+
+        //Clear the Pet Info
         clearPets();
 
+        //Get the Breed information from the API
         getBreeds($(this).val());
 
         //Trigger Search
@@ -159,6 +164,12 @@ $(document).ready(function () {
     function getBreeds(type) {
         var query = buildApiUri('breed');
 
+        /*
+            The JSON likes to throw errors due to the format of the response.
+            Just trying to access the 'breed' level will produce a bunch of errors
+            so we have to do some nested checks here
+         */
+
         $.getJSON(buildApiUri('breed'), function (apiResponse) {
 
             if (apiResponse.petfinder !== undefined) {
@@ -166,6 +177,7 @@ $(document).ready(function () {
                     if (apiResponse.petfinder.breeds.breed !== undefined) {
                         if (apiResponse.petfinder.breeds.breed.length > 0) {
 
+                            //Append each breed item
                             $.each(apiResponse.petfinder.breeds.breed, function(index, breed) {
 
                                 if (breed.$t !== undefined) {
@@ -187,6 +199,7 @@ $(document).ready(function () {
         });
     }
 
+    //Default Any object
     function addAnyBreed() {
         $('#breed').append('<option value="any">Breed - Any</option>');
     }
