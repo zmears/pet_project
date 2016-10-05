@@ -22,7 +22,8 @@
     <body>
         {% block body %}{% endblock %}
         {% block javascripts %}
-            <script src="/js/main.js"></script>
+            <script src="{{ asset('js/main.js') }}"></script>
+            <script src="{{ asset('js/typeahead.bundle.min.js') }}"></script>
         {% endblock %}
     </body>
 </html>

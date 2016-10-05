@@ -18,7 +18,7 @@ class PetFinder
 
     protected  $apiUri = 'http://api.petfinder.com/';
 	private $apiSecret = 'd69a88a1ccd0a2cf5187afa28e6968c6';
-	protected $apiKey = 'e1c7900f743a4c461fd43601078532bf';
+	protected $apiKey  = 'e1c7900f743a4c461fd43601078532bf';
 
     protected $curl;
 
@@ -46,13 +46,6 @@ class PetFinder
 
         //Return response if no errors
         return $this->curl->response;
-    }
-
-    public function search($location, $searchTerms = [], $offset = null, $limit = 25, ) {
-
-
-
-
     }
 
     /**
