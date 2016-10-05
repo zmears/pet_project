@@ -279,7 +279,7 @@ $(document).ready(function () {
         //Modal Setup
         template.find('h4').text(petData.name.$t); //Pet Name
         template.find('.modalPetAttributes').text(petData.description.$t); //Long Text Description
-        template.find('#moreInfo').attr('id', 'moreInfo-' + petId) //Set the modal ID so we can open it
+        template.find('#moreInfo').attr('id', 'moreInfo-' + petId); //Set the modal ID so we can open it
 
         //Append contact data to bottom of the template if we have some.
         if (petData.contact !== undefined) {
